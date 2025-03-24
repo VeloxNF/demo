@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon Sites</title>
+    <link rel="stylesheet" href="./css/store.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div id="header-container"></div>
+        <script src="./js/header.js"></script>
+    </header>
+    <section class="premium-section">
+        <h2>Horizon Store</h2>
+        <p>Browse our exclusive digital items and premium subscriptions. Select your preferred duration and payment method.</p>
+        
+        <div class="product-container">
+            <!-- Produk 1 -->
+            <div class="product-card"
+            data-title="Sewa Bot" 
+            data-img="./img/example-product.jpg" 
+            data-footer="All packages include full access to Sewa Bot features"
+            data-badge="Sewa"
+            data-prices='[
+            {"duration": "10 Days", "price": "Rp5.000", "per_day": "Rp500 / day"},
+            {"duration": "20 Days", "price": "Rp10.000", "per_day": "Rp500 / day"},
+            {"duration": "1 Month", "price": "Rp15.000", "per_day": "Rp500 / day"},
+            {"duration": "Lifetime", "price": "Rp35.000", "per_day": "Akses tanpa batas", "popular": true}
+            ]'>
+                <div class="image-container">
+                    <img src="./img/example-product.jpg" alt="Sewa Bot" draggable="false" oncontextmenu="return false;">
+                    <div class="info-icon">
+                        <i class="fa-solid fa-circle-info fa-xs"></i>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3>Sewa Bot</h3>
+                    <h4><i class="fa-solid fa-gift" style="color: #0077ff;"></i> Benefit</h4>
+                    <p class="short-description" data-full-text="">...</p>
+                    <div class="extra-content">
+                        <p>Welcome</p>
+                        <p>Enable scheduler</p>
+                        <p>Hidetag</p>
+                        <p>Button menu</p>
+                        <p>Downloaders</p>
+                        <p>Anti link</p>
+                        <p>Anti image</p>
+                        <p>Anti sticker</p>
+                        <p>Anti video</p>
+                        <p>Free 7 days premium</p>
+                        <p>and more.</p>
+                        <br>
+                        <p>To see the price, click the Buy Now button</p>
+                    </div>
+                    <a class="show-more">Show more ⭣</a>
+                    <div class="tags">
+                        <span class="tag">Sewa</span>
+                        <span class="popup-tag">Sewa</span>
+                        <span class="popup-price-text">Mulai dari</span>
+                        <span class="popup-price">Rp5.000</span>
+                        <button class="buy-btn">Buy Now</button>
+                    </div>
+                </div>
+            </div>  
+            
+            <!-- Produk 2 -->
+            <div class="product-card"
+            data-title="Premium Membership" 
+            data-img="./img/example-product.jpg" 
+            data-footer="All packages include full access to Premium Membership features"
+            data-badge="Premium"
+            data-prices='[
+            {"duration": "5 Days", "price": "Rp5.000", "per_day": "Rp1.000 / day"},
+            {"duration": "10 Days", "price": "Rp10.000", "per_day": "Rp1.000 / day"},
+            {"duration": "15 Days", "price": "Rp15.000", "per_day": "Rp1.000 / day"},
+            {"duration": "20 Days", "price": "Rp20.000", "per_day": "Rp1.000 / day"},
+            {"duration": "1 Month", "price": "Rp30.000", "per_day": "Rp1.000 / day", "popular": "true"},
+            {"duration": "3 Month", "price": "Rp80.000", "per_day": "Rp888 / day"}
+            ]'>
+                <div class="image-container">
+                    <img src="./img/example-product.jpg" alt="Premium Membership" draggable="false" oncontextmenu="return false;">
+                    <div class="info-icon">
+                        <i class="fa-solid fa-circle-info fa-xs"></i>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3>Premium Membership</h3>
+                    <h4><i class="fa-solid fa-gift" style="color: #0077ff;"></i> Benefit</h4>
+                    <p class="short-description" data-full-text="">...</p>
+                    <div class="extra-content">
+                        <p>GPT 3 Turbo</p>
+                        <p>Llama AI</p>
+                        <p>Prompter</p>
+                        <p>Otakudesu</p>
+                        <p>TinyURL</p>
+                        <p>Remove background</p>
+                        <p>and more.</p>
+                        <br>
+                        <p>To see the price, click the Buy Now button</p>
+                    </div>
+                    <a class="show-more">Show more ⭣</a>
+                    <div class="tags">
+                        <span class="tag">Premium</span>
+                        <span class="popup-tag">Premium</span>
+                        <span class="popup-price-text">Mulai dari</span>
+                        <span class="popup-price">Rp5.000</span>
+                        <button class="buy-btn">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produk 3 -->
+            <div class="product-card"
+            data-title="VPS Cloud" 
+            data-img="./img/example-product.jpg" 
+            data-footer="All packages include full access to VPS Cloud features"
+            data-badge="VPS Cloud"
+            data-prices='[
+            {"duration": "KVM I", "price": "Rp100.000", "per_day": "/ month", "popular": "true"},
+            {"duration": "KVM II", "price": "Rp160.000", "per_day": "/ month"},
+            {"duration": "KVM III", "price": "Rp300.000", "per_day": "/ month"},
+            {"duration": "KVM IV", "price": "Rp560.000", "per_day": "/ month"}
+            ]'>
+                <div class="image-container">
+                    <img src="./img/example-product.jpg" alt="Virtual Private Server" draggable="false" oncontextmenu="return false;">
+                    <div class="info-icon">
+                        <i class="fa-solid fa-circle-info fa-xs"></i>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3>VPS Cloud</h3>
+                    <h4><i class="fa-solid fa-server" style="color: #0077ff;"></i> Specification</h4>
+                    <p class="short-description" data-full-text="">...</p>
+                    <div class="extra-content">
+                        <p>KVM I</p>
+                        <p><i class="fa-solid fa-microchip"></i> 1 vCPU core</p>
+                        <p><i class="fa-solid fa-memory"></i> 4 GB RAM</p>
+                        <p><i class="fa-solid fa-hard-drive"></i> 50 GB NVMe disk space</p>
+                        <p><i class="fa-solid fa-cloud-arrow-up"></i> 4 TB bandwidth</p>
+                        <p>Data Center di Seluruh Dunia</p>
+                        <p>Sistem Operasi: Ubuntu, CentOS, Debian, AlmaLinux, Rocky Linux</p>
+                        <br>
+                        <p>KVM II</p>
+                        <p><i class="fa-solid fa-microchip"></i> 2 vCPU core</p>
+                        <p><i class="fa-solid fa-memory"></i> 8 GB RAM</p>
+                        <p><i class="fa-solid fa-hard-drive"></i> 100 GB NVMe disk space</p>
+                        <p><i class="fa-solid fa-cloud-arrow-up"></i> 8 TB bandwidth</p>
+                        <p>Data Center di Seluruh Dunia</p>
+                        <p>Sistem Operasi: Ubuntu, CentOS, Debian, AlmaLinux, Rocky Linux</p>
+                        <br>
+                        <p>KVM III</p>
+                        <p><i class="fa-solid fa-microchip"></i> 4 vCPU core</p>
+                        <p><i class="fa-solid fa-memory"></i> 16 GB RAM</p>
+                        <p><i class="fa-solid fa-hard-drive"></i> 200 GB NVMe disk space</p>
+                        <p><i class="fa-solid fa-cloud-arrow-up"></i> 16 TB bandwidth</p>
+                        <p>Data Center di Seluruh Dunia</p>
+                        <p>Sistem Operasi: Ubuntu, CentOS, Debian, AlmaLinux, Rocky Linux</p>
+                        <br>
+                        <p>KVM IV</p>
+                        <p><i class="fa-solid fa-microchip"></i> 8 vCPU core</p>
+                        <p><i class="fa-solid fa-memory"></i> 32 GB RAM</p>
+                        <p><i class="fa-solid fa-hard-drive"></i> 400 GB NVMe disk space</p>
+                        <p><i class="fa-solid fa-cloud-arrow-up"></i> 32 TB bandwidth</p>
+                        <p>Data Center di Seluruh Dunia</p>
+                        <p>Sistem Operasi: Ubuntu, CentOS, Debian, AlmaLinux, Rocky Linux</p>
+                        <br>
+                        <p>To see the price, click the Buy Now button</p>
+                    </div>
+                    <a class="show-more">Show more ⭣</a>
+                    <div class="tags">
+                        <span class="tag">VPS Cloud</span>
+                        <span class="popup-tag">VPS Cloud</span>
+                        <span class="popup-price-text">Mulai dari</span>
+                        <span class="popup-price">Rp100.000</span>
+                        <button class="buy-btn">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produk 4 -->
+            <div class="product-card"
+            data-title="Hosting Bot" 
+            data-img="./img/example-product.jpg" 
+            data-footer="All packages include full access to Hosting Bot features"
+            data-badge="Hosting Bot"
+            data-prices='[
+            {"duration": "Package I", "price": "Rp8.000", "per_day": "/ month", "popular": "true"},
+            {"duration": "Package II", "price": "Rp16.000", "per_day": "/ month"},
+            {"duration": "Package III", "price": "Rp24.000", "per_day": "/ month"},
+            {"duration": "Package IV", "price": "Rp32.000", "per_day": "/ month"}
+            ]'>
+                <div class="image-container">
+                    <img src="./img/example-product.jpg" alt="Hosting Bot" draggable="false" oncontextmenu="return false;">
+                    <div class="info-icon">
+                        <i class="fa-solid fa-circle-info fa-xs"></i>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3>Hosting Bot</h3>
+                    <h4><i class="fa-solid fa-server" style="color: #0077ff;"></i> Specification</h4>
+                    <p class="short-description" data-full-text="">...</p>
+                    <div class="extra-content">
+                        <p>Package I</p>
+                        <p><i class="fa-solid fa-microchip"></i> 50% CPU</p>
+                        <p><i class="fa-solid fa-memory"></i> 512 MB RAM</p>
+                        <p><i class="fa-solid fa-hard-drive"></i> 5 GB Storage / Up to 10 GB</p>
+                        <br>
+                        <p>Package II</p>
+                        <p><i class="fa-solid fa-microchip"></i> 100% CPU</p>
+                        <p><i class="fa-solid fa-memory"></i> 1 GB RAM</p>
+                        <p><i class="fa-solid fa-hard-drive"></i> 10 GB Storage / Up to 20 GB</p>
+                        <br>
+                        <p>Package III</p>
+                        <p><i class="fa-solid fa-microchip"></i> 150% CPU</p>
+                        <p><i class="fa-solid fa-memory"></i> 2 GB RAM</p>
+                        <p><i class="fa-solid fa-hard-drive"></i> 15 GB Storage / Up to 30 GB</p>
+                        <br>
+                        <p>Package IV</p>
+                        <p><i class="fa-solid fa-microchip"></i> 200% CPU</p>
+                        <p><i class="fa-solid fa-memory"></i> 4 GB RAM</p>
+                        <p><i class="fa-solid fa-hard-drive"></i> 20 GB Storage / Up to 40 GB</p>
+                        <br>
+                        <p>To see the price, click the Buy Now button</p>
+                    </div>
+                    <a class="show-more">Show more ⭣</a>
+                    <div class="tags">
+                        <span class="tag">Hosting</span>
+                        <span class="popup-tag">Hosting</span>
+                        <span class="popup-price-text">Mulai dari</span>
+                        <span class="popup-price">Rp8.000</span>
+                        <button class="buy-btn">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Popup info icon -->
+            <div class="popup-overlay" id="popup">
+                <div class="popup-card">
+                    <div class="popup-header" id="popup-image">
+                        <div class="popup-close" onclick="closePopup()">×</div>
+                    </div>
+                    <div class="popup-content">
+                        <div class="inner-card">
+                            <div class="popup-title" id="popup-title"></div>
+
+                            <!-- Tag & Harga -->
+                            <div class="popup-header-content">
+                                <span class="popup-tag" id="popup-tag"></span>
+                                <span class="popup-price-text" id="popup-price-text"></span>
+                                <span class="popup-price" id="popup-price"></span>
+                            </div>
+
+                            <hr class="popup-divider">
+                            <h3 class="popup-subtitle">Description</h3>
+                            <div class="popup-description" id="popup-description"></div>
+                        </div>
+
+                        <!-- Tombol -->
+                        <div class="popup-buttons">
+                            <button class="back-btn" onclick="closePopup()">Back</button>
+                            <button class="order-btn">Continue to Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Popup Package (Kosong Secara Default, Data Diisi Dinamis) -->
+            <div class="package-popup-overlay package-hidden">
+                <div class="package-popup">
+                    <button class="package-close-btn">&times;</button>
+                    <div class="package-header">
+                        <img src="" alt="Product Image" class="package-product-img" draggable="false" oncontextmenu="return false;">
+                        <div class="package-product-info">
+                            <h2 class="package-title"></h2>
+                            <span class="package-badge"></span>
+                        </div>
+                    </div>
+                    <div class="package-content">
+                        <p class="package-duration-text">Select duration:</p>
+                        <div class="package-options"></div>
+                        <p class="package-footer"></p>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <script src="./js/store.js"></script>
+</body>
+</html>

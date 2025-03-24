@@ -1,0 +1,284 @@
+/* Body */
+body {
+    background-color: #000;
+    color: white;
+    text-align: center;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Light Theme */
+body.light-theme {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: #000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+/* Light Theme Header */
+body.light-theme header {
+    background: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar Container */
+nav {
+    display: flex;
+    justify-content: space-between; /* Sebar elemen kiri & kanan */
+    align-items: center; /* Posisikan vertikal di tengah */
+    padding: 10px 20px; /* Ruang agar tidak terlalu rapat */
+    position: fixed;
+    top: 58px; /* Mulai sedikit di atas pembatas header */
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 10px 10px;
+    z-index: 1000;
+    opacity: 0; /* Awalnya transparan */
+    transform: translateY(-10px); /* Mulai sedikit lebih atas */
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out; /* Animasi lebih smooth */
+    visibility: hidden; /* Navbar benar-benar hilang */
+}
+
+body.light-theme nav {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+nav:hover {
+    height: auto; /* Perbesar area saat dihover */
+}
+
+/* Navbar Aktif */
+nav.active {
+    top: 54px; /* Beri efek seolah turun sedikit */
+    opacity: 1; /* Fade-in lebih smooth */
+    transform: translateY(0); /* Turun dengan halus */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    visibility: visible; /* Tampilkan saat aktif */
+}
+
+/* Navbar List */
+nav ul {
+    list-style: none;
+    padding: 15px 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    min-height: 100px; /* Tambahkan tinggi minimal */
+}
+
+/* Navbar Links */
+nav ul li {
+    padding: 1px;
+    text-align: left; /* Teks tetap di kiri */
+    margin-bottom: 10px; /* Jarak antar link */
+    width: 100%; /* Membuat link mengisi lebar penuh */
+}
+
+/* Link Style */
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    display: block;
+    padding: 10px 15px; /* Padding tetap dari kiri dan kanan */
+    width: 100%; /* Membuat link memanjang ke kanan */
+    border-radius: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease; /* Transisi cepat untuk hover */
+}
+
+body.light-theme nav ul li a {
+    color: black;
+}
+
+/* Hover Link */
+nav ul li a:hover {
+    background-color: #1d2f44d0;
+}
+
+
+body.light-theme nav ul li a:hover {
+    background-color: #d9e1ec;
+}
+
+nav ul li a.active {
+    background-color: #1d2f44d0;
+}
+
+body.light-theme nav ul li a.active {
+    background-color: #d9e1ec
+}
+
+nav.inactive {
+    animation: fadeOutTop 0.4s ease-in-out forwards;
+    visibility: hidden;
+}
+
+/* Animasi Fade In dari Kiri */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOutTop {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px); /* Naik sedikit saat menghilang */
+    }
+}
+
+/* Menambahkan animasi Fade In pada tiap link dengan durasi yang seragam */
+nav ul li {
+    animation: fadeInLeft 0.3s ease-out forwards;
+    animation-delay: 0s;
+}
+
+nav ul li:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+nav ul li:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+nav ul li:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+nav ul li:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+nav ul li:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+/* Reset tombol */
+.menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 35px;
+    height: 30px;
+    gap: 5px; /* Jarak antar garis */
+    padding: 5px;
+    z-index: 1000; /* Supaya tetap di atas */
+}
+
+/* Garis dalam tombol */
+.bar {
+    background-color: white;
+    height: 2px;
+    width: 100%;
+    border-radius: 2px;
+    transition: transform 0.4s, opacity 0.4s;
+}
+
+body.light-theme .bar {
+    background-color: #000;
+}
+
+/* Efek toggle aktif */
+.menu-toggle.active .bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Logo */
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    background: linear-gradient(to right, #3b82f6, #5533ea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 1100;
+}
+
+/* --- THEME TOGGLE (BULAN & MATAHARI) --- */
+.theme-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50px;
+    height: 25px;
+    background: #2e3b50;
+    border-radius: 50px;
+    position: absolute;
+    right: 80px; /* Atur posisi dari kiri */
+    top: 50%;
+    transform: translateY(-50%); /* Biar sejajar di tengah */
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.slider {
+    width: 22px;
+    height: 22px;
+    background: #1c2533;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: 3px; /* Posisi awal di kanan */
+    transform: translateY(-50%);
+    transition: right 0.3s ease-in-out, transform 0.6s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider i {
+    font-size: 14px;
+    color: yellow;
+    transition: color 0.3s ease-in-out, transform 0.6s ease-in-out;
+}
+
+/* Saat Mode Terang Aktif */
+.theme-toggle.active {
+    background: #ddd;
+}
+
+.theme-toggle.active .slider {
+    right: calc(100% - 25px); /* Geser ikon ke kiri */
+    background: #fff;
+    transform: translateY(-50%) rotateZ(180deg); /* Efek MUTER kayak BAN */
+}
+
+.theme-toggle.active .slider i {
+    color: orange;
+    transform: rotateZ(180deg); /* Ikon ikut MUTER */
+}

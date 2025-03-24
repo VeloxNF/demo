@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon Sites</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div id="header-container"></div>
+        <script src="./js/header.js"></script>
+    </header>
+    
+    <main>
+        <main>
+            <section class="profile-container">
+                <div class="banner">
+                    <img src="./img/banner.jpg" alt="Banner Profile" draggable="false" oncontextmenu="return false;">
+                </div>
+                <div class="profile-info">
+                    <img src="./img/profile-circle.jpg" alt="Profile Picture" class="profile-pic" draggable="false" oncontextmenu="return false;">
+                    <h2>Horizon Sites.<img src="./img/verified.svg" alt="Verified" class="verified-icon" draggable="false" oncontextmenu="return false;"></h2>
+                    <p>Gamer, Junior, ITB.</p>
+                    <div class="tags">
+                        <span>Donghua</span>
+                        <span>Anime</span>
+                        <span>MLBB</span>
+                        <span>Music</span>
+                    </div>
+                </div>
+                <div class="medsos">
+                    <a href="https://instagram.com/shushode">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://github.com/VeloxNF">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://tiktok.com/@rozezfinn">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                </div>
+            </section>
+        </main>
+        
+        
+        <section class="links">
+            <a href="./store.html" class="link" draggable="false" oncontextmenu="return false;">
+                <i class="fa-solid fa-store"></i>
+                <div class="text">
+                    Store Website
+                    <span class="desc">Collection of digital products and services.</span>
+                </div>
+                <i class="fa-solid fa-arrow-right arrow-icon"></i>
+            </a>
+            <a href="#" class="link" draggable="false" oncontextmenu="return false;">
+                <i class="fa-solid fa-gamepad"></i>
+                <div class="text">
+                    Interaction with Horizon
+                    <span class="desc">Play RPG Games on WhatsApp Bot.</span>
+                </div>
+                <i class="fa-solid fa-arrow-right arrow-icon"></i>
+            </a>
+            <a href="#" class="link" draggable="false" oncontextmenu="return false;">
+                <i class="fa-solid fa-code"></i>
+                <div class="text">
+                    Source Code
+                    <span class="desc">Find the website template and open source.</span>
+                </div>
+                <i class="fa-solid fa-arrow-right arrow-icon"></i>
+            </a>
+            <a href="#" class="link" draggable="false" oncontextmenu="return false;">
+                <i class="fa-solid fa-music"></i>
+                <div class="text">
+                    My Albums
+                    <span class="desc">Visit my albums on Spotify.</span>
+                </div>
+                <i class="fa-solid fa-arrow-right arrow-icon"></i>
+            </a>
+            <a href="#" class="link" draggable="false" oncontextmenu="return false;">
+                <i class="fa-solid fa-heart"></i>
+                <div class="text">
+                    Donate
+                    <span class="desc">Donate as you wish.</span>
+                </div>
+                <i class="fa-solid fa-arrow-right arrow-icon"></i>
+            </a>
+            <a class="spotify">
+                <img id="music-image" src="./img/logo-music-matushka.jpg" alt="Music Cover" draggable="false" oncontextmenu="return false;">
+                <div class="text">
+                    MATUSHKA ULTRAFUNK
+                    <span class="desc">satirin</span>
+                </div>
+                <i id="play-btn" class="fa-solid fa-play"  onclick="togglePlay()"></i>
+                <audio id="music" src="./music/matushka.mp3"></audio>
+                <i class="fa-brands fa-spotify"></i>
+            </a>            
+        </section>        
+    </main>
+    <footer>
+        <hr class="footer-line">
+        <p>&copy; 2025 Copyright By Horizon Sites</p>
+    </footer>
+    <script src="./js/index.js"></script>
+</body>
+</html>
