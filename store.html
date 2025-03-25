@@ -286,6 +286,61 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Overlay untuk Payment Popup -->
+            <div class="payment-popup-overlay" id="paymentPopupOverlay">
+                <div class="payment-popup">
+                    <button class="payment-close-btn" onclick="closePopup()">X</button>
+
+                    <!-- Header -->
+                    <div class="payment-header">
+                        <img id="productImage" src="" alt="Gambar Produk" draggable="false" oncontextmenu="return false;">
+                        <div class="pay-product-info">
+                            <h3 id="productName">Nama Produk</h3>
+                            <p id="packageName">Package Produk</p>
+                        </div>
+                    </div>
+
+                    <!-- Body 1: Form Kontak -->
+                    <div class="payment-body">
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" placeholder="example@gmail.com" required>
+
+                        <label for="phone">No WhatsApp</label>
+                        <input type="text" id="phone" placeholder="08123456789">
+                    </div>
+
+                    <!-- Body 2: Pilih Pembayaran -->
+                    <div class="payment-method">
+                        <div class="paymethode" id="paymentDropdown" onclick="togglePaymentOptions()">
+                            <span id="selectedPayment">Pilih Pembayaran</span>
+                        </div>
+                        <div class="payment-options" id="paymentOptions">
+                            <div class="wallet" onclick="selectPayment('Dana')">
+                                <img src="img/dana.png" alt="Dana">
+                            </div>
+                            <div class="wallet" onclick="selectPayment('Gopay')">
+                                <img src="img/gopay.png" alt="Gopay">
+                            </div>
+                            <div class="wallet" onclick="selectPayment('OVO')">
+                                <img src="img/ovo.png" alt="OVO">
+                            </div>
+                            <div class="wallet" onclick="selectPayment('QRIS')">
+                                <img src="img/qris.png" alt="QRIS">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Footer -->
+                    <div class="payment-footer">
+                        <button class="back-button" id="backButton" onclick="closePopup()">Close</button>
+                        <button class="checkout-btn" onclick="checkout()">CheckOut</button>
+                    </div>
+                </div>
+            </div>
+
+
     </section>
     <script src="./js/store.js"></script>
 </body>

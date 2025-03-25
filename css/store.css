@@ -642,11 +642,12 @@ body.light-theme .package-popup {
 }
 
 .package-header .package-title {
-    font-size: 20px; /* Ubah ukuran font */
+    font-size: 18px; /* Ubah ukuran font */
     color: #ffffff; /* Ubah warna font */
     font-weight: bold; /* Buat teks lebih tebal */
     position: relative; /* Izinkan pengaturan posisi */
     top: -10px; /* Naikkan atau turunkan title */
+    text-align: left;
 }
 
 body.light-theme .package-header .package-title {
@@ -803,4 +804,226 @@ body.light-theme .package-duration {
     margin-top: 12px;
     font-size: 10px;
     color: #bbb;
+}
+
+/* Overlay Payment PopUp */
+.payment-popup-overlay {
+    display: flex; /* Tetap flex tapi tersembunyi dengan opacity */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* Ketika popup aktif */
+.payment-popup-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Popup Container */
+.payment-popup {
+    background: linear-gradient(135deg, #374151, #2a2a3d);
+    width: 100%;
+    max-width: 400px;
+    height: 480px;
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+
+    /* Animasi masuk dan keluar */
+    transform: scale(0.9);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Animasi masuk */
+.payment-popup-overlay.show .payment-popup {
+    transform: scale(1);
+    opacity: 1;
+}
+
+body.light-theme .payment-popup{
+    background: white;
+}
+
+
+/* Tombol Close */
+.payment-close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    display: none;
+}
+
+/* Header */
+.payment-header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.light-theme .payment-header {
+    border-bottom: 1px solid rgba(82, 82, 82, 0.2);
+}
+
+.payment-header img {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.pay-product-info {
+    text-align: start;
+}
+.pay-product-info h3 {
+    font-size: 18px;
+    margin: 0;
+    transform: translateY(5px);
+}
+
+.pay-product-info p {
+    font-size: 14px;
+    margin: 5px 0;
+    transform: translateY(1px);
+}
+
+/* Body: Form */
+.payment-body {
+    margin-top: 15px;
+}
+
+.payment-body label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+    text-align: start;
+}
+
+body.light-theme .payment-body label {
+    color: #000;
+}
+
+.payment-body input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+body.light-theme .payment-body input {
+    border: 1px solid #e8e4ec;
+}
+
+.payment-body input::placeholder {
+    color: rgba(255, 255, 255, 0.836);
+}
+
+body.light-theme .payment-body input::placeholder {
+    color: rgba(82, 82, 82, 0.6);
+}
+
+/* Metode Pembayaran */
+.payment-method {
+    margin-top: 15px;
+    text-align: start;
+}
+
+body.light-theme .payment-method {
+    color: #000;
+}
+
+.payment-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.wallet {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+body.light-theme .wallet {
+    background: rgba(41, 41, 41, 0.164);
+}
+
+.wallet:hover {
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+body.light-theme .wallet:hover {
+    outline: 2px solid rgba(82, 82, 82, 0.6);
+}
+
+.wallet.selected {
+    outline: 2px solid white;
+}
+
+body.light-theme .wallet.selected {
+    outline: 2px solid rgba(82, 82, 82, 0.6);
+}
+
+.wallet img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 0px;
+}
+
+/* Footer */
+.payment-footer {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.back-button,
+.checkout-btn {
+    width: 48%;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+.back-button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+body.light-theme .back-button {
+    background: rgba(41, 41, 41, 0.164);
+    color: #000;
+}
+
+.checkout-btn {
+    background: #ffcc00;
+    color: #2a0845;
+    font-weight: bold;
 }

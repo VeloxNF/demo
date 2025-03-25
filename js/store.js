@@ -94,35 +94,40 @@ document.querySelectorAll(".info-icon").forEach((icon) => {
     });
 });
 
-// Fungsi package-popup
+
 document.addEventListener("DOMContentLoaded", function () {
-    const buyButtons = document.querySelectorAll(".buy-btn"); // Tombol Buy Now
-    const popupOverlay = document.querySelector(".package-popup-overlay"); // Overlay Popup
-    const closeButton = document.querySelector(".package-close-btn"); // Tombol Close
-    const popupTitle = document.querySelector(".package-title"); // Nama Produk di Popup
-    const popupBadge = document.querySelector(".package-badge"); // Badge Produk
-    const popupImage = document.querySelector(".package-product-img"); // Gambar Produk
-    const packageOptions = document.querySelector(".package-options"); // Daftar Paket
-    const packageFooter = document.querySelector(".package-footer"); // Footer Popup
+    console.log("✅ DOM Loaded!");
 
-    if (!buyButtons.length || !popupOverlay || !closeButton || !popupTitle || !popupImage || !packageOptions || !packageFooter || !popupBadge) {
-        console.error("Salah satu elemen tidak ditemukan. Pastikan HTML sesuai.");
-        return;
-    }
+    const buyButtons = document.querySelectorAll(".buy-btn");
+    const popupOverlay = document.querySelector(".package-popup-overlay");
+    const closeButton = document.querySelector(".package-close-btn");
+    const popupTitle = document.querySelector(".package-title");
+    const popupBadge = document.querySelector(".package-badge");
+    const popupImage = document.querySelector(".package-product-img");
+    const packageOptions = document.querySelector(".package-options");
+    const packageFooter = document.querySelector(".package-footer");
+    const paymentPopup = document.getElementById("paymentPopupOverlay");
+    const paymentTitle = document.getElementById("productName");
+    const paymentImage = document.getElementById("productImage");
+    const paymentPackage = document.getElementById("packageName");
+    const payNowButton = document.querySelector(".payment-footer button:nth-child(2)");
+    const closePaymentButton = document.querySelector(".payment-close-btn");
+    const backButton = document.getElementById("backButton");
+    const dropdown = document.querySelector(".dropdown");
+    const paymentOptions = document.querySelector(".payment-options");
 
-    // Fungsi untuk membuka package-popup dengan data produk yang sesuai
+    let selectedPackage = {};
+
     function openPackagePopup(button) {
-        const productCard = button.closest(".product-card"); // Ambil elemen parent (produk terkait)
+        const productCard = button.closest(".product-card");
         if (!productCard) return;
 
-        // Ambil data dari atribut data-*
         const title = productCard.getAttribute("data-title") || "No Title";
         const image = productCard.getAttribute("data-img") || "No Image";
         const pricesData = productCard.getAttribute("data-prices") || "No data available";
         const badge = productCard.getAttribute("data-badge") || "Not in category";
-        const footer = productCard.getAttribute("data-footer") || "No description available."; // Ambil deskripsi produk
+        const footer = productCard.getAttribute("data-footer") || "No description available.";
 
-        // Pastikan data harga valid sebelum diparsing
         let prices = [];
         try {
             prices = JSON.parse(pricesData);
@@ -132,19 +137,16 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Isi data ke dalam popup
         popupTitle.textContent = title;
-        popupBadge.textContent = badge; // Set badge menjadi "Sewa"
+        popupBadge.textContent = badge;
         popupImage.src = image;
-        packageOptions.innerHTML = ""; // Hapus opsi lama sebelum menambahkan baru
-        packageFooter.textContent = footer; // Tampilkan deskripsi di footer
+        packageOptions.innerHTML = "";
+        packageFooter.textContent = footer;
 
-        // Loop melalui daftar harga dan tambahkan opsi paket
         prices.forEach(price => {
             const optionDiv = document.createElement("div");
             optionDiv.classList.add("package-option");
 
-            // Jika paket populer, tambahkan kelas dan label khusus
             let popularBadge = "";
             if (price.popular) {
                 optionDiv.classList.add("package-popular");
@@ -163,52 +165,113 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             `;
 
+            optionDiv.addEventListener("click", function () {
+                selectedPackage = {
+                    title: title,
+                    image: image,
+                    duration: price.duration,
+                    price: price.price
+                };
+
+                localStorage.setItem("selectedPackage", JSON.stringify(selectedPackage));
+                openPaymentPopup();
+            });
+
             packageOptions.appendChild(optionDiv);
         });
 
-        // Tampilkan popup
         popupOverlay.classList.add("package-show");
     }
 
-    // Event listener untuk setiap tombol Buy Now
     buyButtons.forEach(button => {
         button.addEventListener("click", function () {
             openPackagePopup(button);
         });
     });
 
-    // Event listener untuk tombol close
     closeButton.addEventListener("click", function () {
         popupOverlay.classList.remove("package-show");
     });
 
-    // Event listener untuk menutup popup saat klik di luar popup
     popupOverlay.addEventListener("click", function (e) {
         if (e.target === popupOverlay) {
             popupOverlay.classList.remove("package-show");
         }
     });
 
-    // Event listener untuk tombol "Order" di popup info agar otomatis buka popup package
-    const orderButton = document.querySelector(".order-btn"); // Tombol Order di Info Popup
-    if (orderButton) {
-        orderButton.addEventListener("click", function () {
-            closePopup(); // Menutup popup info
+     // Event listener untuk tombol "Order" di popup info agar otomatis buka popup package
+     const orderButton = document.querySelector(".order-btn"); // Tombol Order di Info Popup
+     if (orderButton) {
+         orderButton.addEventListener("click", function () {
+             closePopup(); // Menutup popup info
+ 
+             // Cari produk yang sedang ditampilkan di info popup
+             let popupTitle = document.getElementById("popup-title").innerText;
+ 
+             // Cari produk yang memiliki judul yang sama di daftar produk
+             let targetProduct = [...document.querySelectorAll(".product-card")].find(card => 
+                 card.querySelector("h3")?.innerText.trim() === popupTitle.trim()
+             );
+ 
+             if (targetProduct) {
+                 let buyNowButton = targetProduct.querySelector(".buy-btn");
+                 if (buyNowButton) {
+                     buyNowButton.click(); // Klik otomatis tombol Buy Now
+                 }
+             }
+         });
+     }
 
-            // Cari produk yang sedang ditampilkan di info popup
-            let popupTitle = document.getElementById("popup-title").innerText;
-
-            // Cari produk yang memiliki judul yang sama di daftar produk
-            let targetProduct = [...document.querySelectorAll(".product-card")].find(card => 
-                card.querySelector("h3")?.innerText.trim() === popupTitle.trim()
-            );
-
-            if (targetProduct) {
-                let buyNowButton = targetProduct.querySelector(".buy-btn");
-                if (buyNowButton) {
-                    buyNowButton.click(); // Klik otomatis tombol Buy Now
-                }
-            }
-        });
+    function openPaymentPopup() {
+        console.log("✅ openPaymentPopup dipanggil!");
+    
+        let selectedPackage = localStorage.getItem("selectedPackage");
+    
+        if (!selectedPackage) {
+            console.error("⚠️ Tidak ada paket yang dipilih di localStorage!");
+            return;
+        }
+    
+        selectedPackage = JSON.parse(selectedPackage);
+    
+        paymentTitle.textContent = selectedPackage.title;
+        paymentImage.src = selectedPackage.image;
+        paymentPackage.innerHTML = `
+            <p>${selectedPackage.duration}</p>
+            <p>${selectedPackage.price}</p>
+        `;
+    
+        paymentPopup.classList.add("show");
+        popupOverlay.classList.remove("package-show");
     }
+
+    function closePaymentPopup() {
+        paymentPopup.classList.remove("show");
+    }
+    
+    closePaymentButton.addEventListener("click", closePaymentPopup);
+    backButton.addEventListener("click", closePaymentPopup);
+    
+    // Tutup popup jika klik di luar area popup
+    paymentPopup.addEventListener("click", function (e) {
+        if (e.target === paymentPopup) {
+            closePaymentPopup();
+        }
+    });
+    
+    
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const wallets = document.querySelectorAll(".wallet");
+
+    wallets.forEach(wallet => {
+        wallet.addEventListener("click", function () {
+            // Hapus class 'selected' dari semua wallet
+            wallets.forEach(w => w.classList.remove("selected"));
+
+            // Tambahkan class 'selected' ke wallet yang dipilih
+            this.classList.add("selected");
+        });
+    });
 });
