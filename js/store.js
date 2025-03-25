@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Fungsi popup info icon
 function openPopup(image, title, tag, priceText, price, description) {
     document.getElementById("popup-image").style.backgroundImage = `url(${image})`;
     document.getElementById("popup-title").innerText = title;
@@ -62,7 +63,6 @@ function openPopup(image, title, tag, priceText, price, description) {
 function closePopup() {
     document.getElementById("popup").classList.remove("active");
 }
-
 
 document.querySelectorAll(".info-icon").forEach((icon) => {
     icon.addEventListener("click", function () {
@@ -90,12 +90,11 @@ document.querySelectorAll(".info-icon").forEach((icon) => {
             description = "<p>Deskripsi tidak ada</p>";
         }
 
-
         openPopup(image, title, tag, priceText, price, description);
     });
 });
 
-
+// Fungsi package-popup
 document.addEventListener("DOMContentLoaded", function () {
     const buyButtons = document.querySelectorAll(".buy-btn"); // Tombol Buy Now
     const popupOverlay = document.querySelector(".package-popup-overlay"); // Overlay Popup
@@ -106,70 +105,75 @@ document.addEventListener("DOMContentLoaded", function () {
     const packageOptions = document.querySelector(".package-options"); // Daftar Paket
     const packageFooter = document.querySelector(".package-footer"); // Footer Popup
 
-    if (!buyButtons || !popupOverlay || !closeButton || !popupTitle || !popupImage || !packageOptions || !packageFooter || !popupBadge) {
+    if (!buyButtons.length || !popupOverlay || !closeButton || !popupTitle || !popupImage || !packageOptions || !packageFooter || !popupBadge) {
         console.error("Salah satu elemen tidak ditemukan. Pastikan HTML sesuai.");
         return;
+    }
+
+    // Fungsi untuk membuka package-popup dengan data produk yang sesuai
+    function openPackagePopup(button) {
+        const productCard = button.closest(".product-card"); // Ambil elemen parent (produk terkait)
+        if (!productCard) return;
+
+        // Ambil data dari atribut data-*
+        const title = productCard.getAttribute("data-title") || "No Title";
+        const image = productCard.getAttribute("data-img") || "No Image";
+        const pricesData = productCard.getAttribute("data-prices") || "No data available";
+        const badge = productCard.getAttribute("data-badge") || "Not in category";
+        const footer = productCard.getAttribute("data-footer") || "No description available."; // Ambil deskripsi produk
+
+        // Pastikan data harga valid sebelum diparsing
+        let prices = [];
+        try {
+            prices = JSON.parse(pricesData);
+            if (!Array.isArray(prices)) throw new Error("Invalid prices format.");
+        } catch (error) {
+            console.error("Error parsing prices data:", error);
+            return;
+        }
+
+        // Isi data ke dalam popup
+        popupTitle.textContent = title;
+        popupBadge.textContent = badge; // Set badge menjadi "Sewa"
+        popupImage.src = image;
+        packageOptions.innerHTML = ""; // Hapus opsi lama sebelum menambahkan baru
+        packageFooter.textContent = footer; // Tampilkan deskripsi di footer
+
+        // Loop melalui daftar harga dan tambahkan opsi paket
+        prices.forEach(price => {
+            const optionDiv = document.createElement("div");
+            optionDiv.classList.add("package-option");
+
+            // Jika paket populer, tambahkan kelas dan label khusus
+            let popularBadge = "";
+            if (price.popular) {
+                optionDiv.classList.add("package-popular");
+                popularBadge = `<span class="popular-badge">🔥 POPULAR</span>`;
+            }
+
+            optionDiv.innerHTML = `
+                <div class="package-info">
+                    ${popularBadge}
+                    <span class="package-duration">${price.duration || "Unknown"}</span><br>
+                    <span class="package-per-day">${price.per_day || "N/A"}</span>
+                </div>
+                <div class="package-right">
+                    <span class="package-price">${price.price || "N/A"}</span>
+                    <span class="select-text">Select &gt;</span>
+                </div>
+            `;
+
+            packageOptions.appendChild(optionDiv);
+        });
+
+        // Tampilkan popup
+        popupOverlay.classList.add("package-show");
     }
 
     // Event listener untuk setiap tombol Buy Now
     buyButtons.forEach(button => {
         button.addEventListener("click", function () {
-            const productCard = button.closest(".product-card"); // Ambil elemen parent (produk terkait)
-
-            if (!productCard) return;
-
-            // Ambil data dari atribut data-*
-            const title = productCard.getAttribute("data-title") || "No Title";
-            const image = productCard.getAttribute("data-img") || "";
-            const pricesData = productCard.getAttribute("data-prices") || "[]";
-            const footer = productCard.getAttribute("data-footer") || "No description available."; // Ambil deskripsi produk
-
-            // Pastikan data harga valid sebelum diparsing
-            let prices = [];
-            try {
-                prices = JSON.parse(pricesData);
-                if (!Array.isArray(prices)) throw new Error("Invalid prices format.");
-            } catch (error) {
-                console.error("Error parsing prices data:", error);
-                return;
-            }
-
-            // Isi data ke dalam popup
-            popupTitle.textContent = title;
-            popupBadge.textContent = "Sewa"; // Set badge menjadi "Sewa"
-            popupImage.src = image;
-            packageOptions.innerHTML = ""; // Hapus opsi lama sebelum menambahkan baru
-            packageFooter.textContent = footer; // Tampilkan deskripsi di footer
-
-            // Loop melalui daftar harga dan tambahkan opsi paket
-            prices.forEach(price => {
-                const optionDiv = document.createElement("div");
-                optionDiv.classList.add("package-option");
-
-                // Jika paket populer, tambahkan kelas dan label khusus
-                let popularBadge = "";
-                if (price.popular) {
-                    optionDiv.classList.add("package-popular");
-                    popularBadge = `<span class="popular-badge">🔥 POPULAR</span>`;
-                }
-
-                optionDiv.innerHTML = `
-                    <div class="package-info">
-                        ${popularBadge}
-                        <span class="package-duration">${price.duration || "Unknown"}</span><br>
-                        <span class="package-per-day">${price.per_day || "N/A"}</span>
-                    </div>
-                    <div class="package-right">
-                        <span class="package-price">${price.price || "N/A"}</span>
-                        <span class="select-text">Select &gt;</span>
-                    </div>
-                `;
-
-                packageOptions.appendChild(optionDiv);
-            });
-
-            // Tampilkan popup
-            popupOverlay.classList.add("package-show");
+            openPackagePopup(button);
         });
     });
 
@@ -184,5 +188,27 @@ document.addEventListener("DOMContentLoaded", function () {
             popupOverlay.classList.remove("package-show");
         }
     });
-});
 
+    // Event listener untuk tombol "Order" di popup info agar otomatis buka popup package
+    const orderButton = document.querySelector(".order-btn"); // Tombol Order di Info Popup
+    if (orderButton) {
+        orderButton.addEventListener("click", function () {
+            closePopup(); // Menutup popup info
+
+            // Cari produk yang sedang ditampilkan di info popup
+            let popupTitle = document.getElementById("popup-title").innerText;
+
+            // Cari produk yang memiliki judul yang sama di daftar produk
+            let targetProduct = [...document.querySelectorAll(".product-card")].find(card => 
+                card.querySelector("h3")?.innerText.trim() === popupTitle.trim()
+            );
+
+            if (targetProduct) {
+                let buyNowButton = targetProduct.querySelector(".buy-btn");
+                if (buyNowButton) {
+                    buyNowButton.click(); // Klik otomatis tombol Buy Now
+                }
+            }
+        });
+    }
+});
