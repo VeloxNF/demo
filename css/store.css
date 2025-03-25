@@ -842,6 +842,11 @@ body.light-theme .package-duration {
     transform: scale(0.9);
     opacity: 0;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    overflow-y: auto;
+}
+
+.payment-popup::-webkit-scrollbar {
+    display: none;
 }
 
 /* Animasi masuk */
