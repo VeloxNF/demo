@@ -115,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const backButton = document.getElementById("backButton");
     const dropdown = document.querySelector(".dropdown");
     const paymentOptions = document.querySelector(".payment-options");
+    const wallets = document.querySelectorAll(".wallet"); // 🔹 Ambil elemen wallet
 
     let selectedPackage = {};
 
@@ -199,29 +200,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-     // Event listener untuk tombol "Order" di popup info agar otomatis buka popup package
-     const orderButton = document.querySelector(".order-btn"); // Tombol Order di Info Popup
-     if (orderButton) {
-         orderButton.addEventListener("click", function () {
-             closePopup(); // Menutup popup info
- 
-             // Cari produk yang sedang ditampilkan di info popup
-             let popupTitle = document.getElementById("popup-title").innerText;
- 
-             // Cari produk yang memiliki judul yang sama di daftar produk
-             let targetProduct = [...document.querySelectorAll(".product-card")].find(card => 
-                 card.querySelector("h3")?.innerText.trim() === popupTitle.trim()
-             );
- 
-             if (targetProduct) {
-                 let buyNowButton = targetProduct.querySelector(".buy-btn");
-                 if (buyNowButton) {
-                     buyNowButton.click(); // Klik otomatis tombol Buy Now
-                 }
-             }
-         });
-     }
-
     function openPaymentPopup() {
         console.log("✅ openPaymentPopup dipanggil!");
     
@@ -247,6 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function closePaymentPopup() {
         paymentPopup.classList.remove("show");
+        clearWalletSelection(); // 🔹 Hapus pilihan wallet saat popup ditutup
     }
     
     closePaymentButton.addEventListener("click", closePaymentPopup);
@@ -258,19 +237,16 @@ document.addEventListener("DOMContentLoaded", function () {
             closePaymentPopup();
         }
     });
-    
-    
-});
 
-document.addEventListener("DOMContentLoaded", function () {
-    const wallets = document.querySelectorAll(".wallet");
+    // 🔹 Fungsi untuk menghapus pilihan wallet saat payment popup ditutup
+    function clearWalletSelection() {
+        wallets.forEach(w => w.classList.remove("selected"));
+    }
 
+    // 🔹 Event listener untuk memilih wallet
     wallets.forEach(wallet => {
         wallet.addEventListener("click", function () {
-            // Hapus class 'selected' dari semua wallet
             wallets.forEach(w => w.classList.remove("selected"));
-
-            // Tambahkan class 'selected' ke wallet yang dipilih
             this.classList.add("selected");
         });
     });
