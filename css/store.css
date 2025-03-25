@@ -834,7 +834,7 @@ body.light-theme .package-duration {
     background: linear-gradient(135deg, #374151, #2a2a3d);
     width: 100%;
     max-width: 400px;
-    height: auto;
+    height: 500px;
     border-radius: 15px;
     padding: 20px;
     color: white;
@@ -998,10 +998,12 @@ body.light-theme .wallet.selected {
     margin-top: 15px;
     display: flex;
     justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .back-button,
 .checkout-btn {
+    margin-top: 30px;
     width: 48%;
     padding: 10px;
     border-radius: 8px;
