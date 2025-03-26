@@ -277,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (orderData.paymentMethod === "QRIS") {
             document.getElementById("transaction-payment-qris").classList.remove("hidden");
-            document.getElementById("transaction-qris-image").src = `img/${orderData.paymentMethod.toLowerCase()}.png`;
+            document.getElementById("transaction-qris-image").src = `./img/${orderData.paymentMethod.toLowerCase()}.png`;
             document.getElementById("transaction-payment-other").classList.add("hidden");
         } else {
             document.getElementById("transaction-payment-qris").classList.add("hidden");
