@@ -394,3 +394,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const downloadBtn = document.querySelector(".transaction-download-qr");
+    const qrImage = document.getElementById("transaction-qris-image");
+
+    downloadBtn.addEventListener("click", function () {
+        if (!qrImage.src) {
+            alert("QR code belum tersedia!");
+            return;
+        }
+
+        // Membuat elemen <a> untuk download
+        const link = document.createElement("a");
+        link.href = qrImage.src;
+        link.download = "qris.png"; // Nama file yang diunduh
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+});

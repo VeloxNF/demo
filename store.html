@@ -381,19 +381,23 @@
                         
                         <div id="transaction-payment-qris" class="transaction-payment hidden">
                             <h4>Scan QR Code to Pay</h4>
-                            <img id="transaction-qris-image" src="" alt="QR Image">
-                            <button class="transaction-download-qr">Download QR</button>
+                            <img id="transaction-qris-image" src="./img/qris.png" alt="QR Image">
+                            <button class="transaction-download-qr"><i class="fa-solid fa-download"></i> Download QR</button>
+                            <br>
+                            <p class="warning">After payment, please contact us via WhatsApp with your payment receipt for immediate activation.</p>
                         </div>
                         
                         <div id="transaction-payment-other" class="transaction-payment hidden">
                             <h4>Please make a payment</h4>
                             <img id="transaction-payment-logo" src="" alt="Payment Logo">
                             <p id="transaction-payment-number"></p>
+                            <br>
+                            <p class="warning">After payment, please contact us via WhatsApp with your payment receipt for immediate activation.</p>
                         </div>
                     </div>
                     <div class="transaction-popup-footer">
-                        <button class="transaction-cancel" onclick="cancelTransaction()">CANCEL</button>
-                        <button class="transaction-whatsapp">WhatsApp</button>
+                        <button class="transaction-cancel" onclick="cancelTransaction()"><i class="fa-solid fa-xmark"></i> CANCEL</button>
+                        <button class="transaction-whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
                     </div>
                 </div>
             </div>
