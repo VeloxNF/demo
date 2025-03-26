@@ -281,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             document.getElementById("transaction-payment-qris").classList.add("hidden");
             document.getElementById("transaction-payment-other").classList.remove("hidden");
-            document.getElementById("transaction-payment-logo").src = `/img/${orderData.paymentMethod.toLowerCase()}.png`;
+            document.getElementById("transaction-payment-logo").src = `img/${orderData.paymentMethod.toLowerCase()}.png`;
             document.getElementById("transaction-payment-number").textContent = "082351108031";
         }
 
