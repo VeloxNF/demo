@@ -369,5 +369,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 this.classList.add("selected");
             });
         });
+
+        // Event listener untuk tombol "Order" di popup info agar otomatis buka popup package
+        const orderButton = document.querySelector(".order-btn"); // Tombol Order di Info Popup
+        if (orderButton) {
+            orderButton.addEventListener("click", function () {
+                closePopup(); // Menutup popup info
+
+                // Cari produk yang sedang ditampilkan di info popup
+                let popupTitle = document.getElementById("popup-title").innerText;
+
+                // Cari produk yang memiliki judul yang sama di daftar produk
+                let targetProduct = [...document.querySelectorAll(".product-card")].find(card => 
+                    card.querySelector("h3")?.innerText.trim() === popupTitle.trim()
+                );
+
+                if (targetProduct) {
+                    let buyNowButton = targetProduct.querySelector(".buy-btn");
+                    if (buyNowButton) {
+                        buyNowButton.click(); // Klik otomatis tombol Buy Now
+                    }
+                }
+            });
+        }
     
 });
