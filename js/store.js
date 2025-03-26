@@ -277,11 +277,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (orderData.paymentMethod === "QRIS") {
             document.getElementById("transaction-payment-qris").classList.remove("hidden");
+            document.getElementById("transaction-qris-image").src = `img/${orderData.paymentMethod.toLowerCase()}.png`;
             document.getElementById("transaction-payment-other").classList.add("hidden");
         } else {
             document.getElementById("transaction-payment-qris").classList.add("hidden");
             document.getElementById("transaction-payment-other").classList.remove("hidden");
-            document.getElementById("transaction-qris-image").src = `./img/qris.png`;
             document.getElementById("transaction-payment-logo").src = `img/${orderData.paymentMethod.toLowerCase()}.png`;
             document.getElementById("transaction-payment-number").textContent = "082351108031";
         }

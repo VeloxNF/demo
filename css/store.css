@@ -1091,12 +1091,6 @@ body.light-theme .back-button {
     color: white;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    height: 710px;
-    overflow-y: auto;
-}
-
-.transaction-popup-content::-webkit-scrollbar {
-    display: none;
 }
 
 body.light-theme .transaction-popup-content {
