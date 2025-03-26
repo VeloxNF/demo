@@ -1091,6 +1091,12 @@ body.light-theme .back-button {
     color: white;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    height: 710px;
+    overflow-y: auto;
+}
+
+.transaction-popup-content::-webkit-scrollbar {
+    display: none;
 }
 
 body.light-theme .transaction-popup-content {
@@ -1330,12 +1336,17 @@ body.light-theme hr {
 }
 
 .transaction-payment .warning {
-    color: #175397;
+    color: #67aeffbb;
     font-size: 12px;
     border-radius: 8px;
-    border: 1px solid #67aeff5b;
+    border: 1px solid #175397;
     background: #81bcff41;
     padding: 10px 5px 10px;
+}
+
+body.light-theme .transaction-payment .warning {
+    border: 1px solid #67aeff5b;
+    color: #175397;
 }
 
 .transaction-popup-footer {
