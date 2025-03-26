@@ -289,7 +289,7 @@
             
             <!-- Overlay untuk Payment Popup -->
             <div class="payment-popup-overlay" id="paymentPopupOverlay">
-                <div class="payment-popup">
+                <div class="payment-popup" id="payment-popup">
                     <button class="payment-close-btn" onclick="closePopup()">X</button>
 
                     <!-- Header -->
@@ -303,44 +303,100 @@
 
                     <!-- Body 1: Form Kontak -->
                     <div class="payment-body">
-                        <label for="email">Email*</label>
-                        <input type="email" id="email" placeholder="example@gmail.com" required>
-
-                        <label for="phone">No WhatsApp</label>
-                        <input type="text" id="phone" placeholder="08123456789">
+                        <label for="emailInput">Email</label>
+                        <input type="email" id="emailInput" placeholder="example@gmail.com" required>
                     </div>
 
                     <!-- Body 2: Pilih Pembayaran -->
                     <div class="payment-method">
-                        <div class="paymethode" id="paymentDropdown" onclick="togglePaymentOptions()">
+                        <div class="paymethode">
                             <span id="selectedPayment">Pilih Pembayaran</span>
                         </div>
                         <div class="payment-options" id="paymentOptions">
-                            <div class="wallet" onclick="selectPayment('Dana')">
+                            <div class="wallet" onclick="selectPayment('dana')">
                                 <img src="img/dana.png" alt="Dana">
                             </div>
-                            <div class="wallet" onclick="selectPayment('Gopay')">
+                            <div class="wallet" onclick="selectPayment('gopay')">
                                 <img src="img/gopay.png" alt="Gopay">
                             </div>
-                            <div class="wallet" onclick="selectPayment('OVO')">
+                            <div class="wallet" onclick="selectPayment('ovo')">
                                 <img src="img/ovo.png" alt="OVO">
                             </div>
-                            <div class="wallet" onclick="selectPayment('QRIS')">
-                                <img src="img/qris.png" alt="QRIS">
+                            <div class="wallet" onclick="selectPayment('qris')">
+                                <img src="img/qris-ri.png" alt="QRIS">
                             </div>
                         </div>
                     </div>
-
 
                     <!-- Footer -->
                     <div class="payment-footer">
                         <button class="back-button" id="backButton" onclick="closePopup()">Close</button>
-                        <button class="checkout-btn" onclick="checkout()">CheckOut</button>
+                        <button class="checkout-btn" id="checkoutButton" onclick="checkout()">CheckOut</button>
+                    </div>
+                </div>
+
+                <div id="customAlert" class="custom-alert"></div>
+            </div>
+
+            <!-- Popup Transaksi -->
+            <div id="transaction-popup" class="transaction-popup hidden">
+                <div class="transaction-popup-content">
+                    <div class="transaction-popup-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <div class="header-text">
+                                <h3>Order Details</h3>
+                                <h4>Complete your purchase</h4>
+                            </div>
+                        </div>
+                        <button class="transaction-popup-close" onclick="cancelTransaction()">&times;</button>
+                    </div>
+                    <div class="transaction-popup-body">
+                        <div class="transaction-popup-product">
+                            <img id="transaction-product-image" src="" alt="Product Image">
+                            <div class="transaction-popup-info">
+                                <h4 id="transaction-product-name"></h4>
+                                <h5 class="transaction-package-duration" id="transaction-package-duration"></h5>
+                                <div class="transaction-price-details">
+                                    <div class="price-row">
+                                        <span class="subtotal">Subtotal:</span>
+                                        <p class="transaction-package-price"><span id="transaction-subtotal-price"></span></p>
+                                    </div>
+                                    <div class="price-row">
+                                        <span class="biaya-layanan">Biaya Layanan:</span>
+                                        <span id="transaction-service-fee">Rp0</span>
+                                    </div>
+                                    <div class="price-row discount">
+                                        <span class="diskon">Diskon:</span>
+                                        <span id="transaction-discount">-Rp0</span>
+                                    </div>
+                                    <hr>
+                                    <div class="price-row total">
+                                        <span>Total:</span>
+                                        <p><span id="transaction-total-price"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="transaction-payment-qris" class="transaction-payment hidden">
+                            <h4>Scan QR Code to Pay</h4>
+                            <img id="transaction-qris-image" src="/img/qris.png" alt="QR Image">
+                            <button class="transaction-download-qr">Download QR</button>
+                        </div>
+                        
+                        <div id="transaction-payment-other" class="transaction-payment hidden">
+                            <h4>Please make a payment</h4>
+                            <img id="transaction-payment-logo" src="" alt="Payment Logo">
+                            <p id="transaction-payment-number"></p>
+                        </div>
+                    </div>
+                    <div class="transaction-popup-footer">
+                        <button class="transaction-cancel" onclick="cancelTransaction()">CANCEL</button>
+                        <button class="transaction-whatsapp">WhatsApp</button>
                     </div>
                 </div>
             </div>
-
-
     </section>
     <script src="./js/store.js"></script>
 </body>

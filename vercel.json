@@ -1,5 +1,6 @@
 {
     "rewrites": [
+      { "source": "/index.html", "destination": "/", "permanent": true },
       { "source": "/store", "destination": "/store.html" },
       { "source": "/source-code", "destination": "/source-code.html" },
       { "source": "/donation", "destination": "/donate.html" }

@@ -96,8 +96,8 @@ document.querySelectorAll(".info-icon").forEach((icon) => {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("✅ DOM Loaded!");
 
+    // Ambil elemen-elemen penting
     const buyButtons = document.querySelectorAll(".buy-btn");
     const popupOverlay = document.querySelector(".package-popup-overlay");
     const closeButton = document.querySelector(".package-close-btn");
@@ -110,13 +110,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const paymentTitle = document.getElementById("productName");
     const paymentImage = document.getElementById("productImage");
     const paymentPackage = document.getElementById("packageName");
-    const payNowButton = document.querySelector(".payment-footer button:nth-child(2)");
     const closePaymentButton = document.querySelector(".payment-close-btn");
     const backButton = document.getElementById("backButton");
-    const dropdown = document.querySelector(".dropdown");
-    const paymentOptions = document.querySelector(".payment-options");
-    const wallets = document.querySelectorAll(".wallet"); // 🔹 Ambil elemen wallet
+    const wallets = document.querySelectorAll(".wallet");
+    const checkoutButton = document.querySelector(".checkout-btn");
+    const emailInput = document.getElementById("emailInput");
+    const transactionPopup = document.getElementById("transaction-popup");
+    const closeTransactionButton = document.querySelector(".transaction-cancel");
 
+    let selectedPaymentMethod = "";
     let selectedPackage = {};
 
     function openPackagePopup(button) {
@@ -134,7 +136,6 @@ document.addEventListener("DOMContentLoaded", function () {
             prices = JSON.parse(pricesData);
             if (!Array.isArray(prices)) throw new Error("Invalid prices format.");
         } catch (error) {
-            console.error("Error parsing prices data:", error);
             return;
         }
 
@@ -147,16 +148,12 @@ document.addEventListener("DOMContentLoaded", function () {
         prices.forEach(price => {
             const optionDiv = document.createElement("div");
             optionDiv.classList.add("package-option");
-
-            let popularBadge = "";
             if (price.popular) {
                 optionDiv.classList.add("package-popular");
-                popularBadge = `<span class="popular-badge">🔥 POPULAR</span>`;
+                optionDiv.innerHTML = `<span class="popular-badge">🔥 POPULAR</span>`;
             }
-
-            optionDiv.innerHTML = `
+            optionDiv.innerHTML += `
                 <div class="package-info">
-                    ${popularBadge}
                     <span class="package-duration">${price.duration || "Unknown"}</span><br>
                     <span class="package-per-day">${price.per_day || "N/A"}</span>
                 </div>
@@ -167,13 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
 
             optionDiv.addEventListener("click", function () {
-                selectedPackage = {
-                    title: title,
-                    image: image,
-                    duration: price.duration,
-                    price: price.price
-                };
-
+                selectedPackage = { title, image, duration: price.duration, price: price.price };
                 localStorage.setItem("selectedPackage", JSON.stringify(selectedPackage));
                 openPaymentPopup();
             });
@@ -184,70 +175,199 @@ document.addEventListener("DOMContentLoaded", function () {
         popupOverlay.classList.add("package-show");
     }
 
-    buyButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            openPackagePopup(button);
-        });
-    });
-
-    closeButton.addEventListener("click", function () {
-        popupOverlay.classList.remove("package-show");
-    });
-
-    popupOverlay.addEventListener("click", function (e) {
-        if (e.target === popupOverlay) {
-            popupOverlay.classList.remove("package-show");
-        }
-    });
-
     function openPaymentPopup() {
-        console.log("✅ openPaymentPopup dipanggil!");
-    
-        let selectedPackage = localStorage.getItem("selectedPackage");
-    
-        if (!selectedPackage) {
-            console.error("⚠️ Tidak ada paket yang dipilih di localStorage!");
-            return;
-        }
-    
-        selectedPackage = JSON.parse(selectedPackage);
-    
+        let storedPackage = localStorage.getItem("selectedPackage");
+        
+        selectedPackage = JSON.parse(storedPackage);
         paymentTitle.textContent = selectedPackage.title;
         paymentImage.src = selectedPackage.image;
-        paymentPackage.innerHTML = `
-            <p>${selectedPackage.duration}</p>
-            <p>${selectedPackage.price}</p>
-        `;
-    
+        paymentPackage.innerHTML = `<p>${selectedPackage.duration}</p><p>${selectedPackage.price}</p>`;
         paymentPopup.classList.add("show");
         popupOverlay.classList.remove("package-show");
     }
 
     function closePaymentPopup() {
         paymentPopup.classList.remove("show");
-        clearWalletSelection(); // 🔹 Hapus pilihan wallet saat popup ditutup
-    }
-    
-    closePaymentButton.addEventListener("click", closePaymentPopup);
-    backButton.addEventListener("click", closePaymentPopup);
-    
-    // Tutup popup jika klik di luar area popup
-    paymentPopup.addEventListener("click", function (e) {
-        if (e.target === paymentPopup) {
-            closePaymentPopup();
+        clearWalletSelection();
+        
+        // Hapus data dari localStorage saat popup ditutup
+        if (localStorage.getItem("orderData")) {
+            localStorage.removeItem("orderData");
         }
-    });
+        if (localStorage.getItem("selectedPackage")) {
+            localStorage.removeItem("selectedPackage");
+        }
 
-    // 🔹 Fungsi untuk menghapus pilihan wallet saat payment popup ditutup
+        // Reset selectedPaymentMethod agar pengguna harus memilih ulang
+        selectedPaymentMethod = "";
+    }
+
     function clearWalletSelection() {
         wallets.forEach(w => w.classList.remove("selected"));
     }
 
-    // 🔹 Event listener untuk memilih wallet
-    wallets.forEach(wallet => {
-        wallet.addEventListener("click", function () {
-            wallets.forEach(w => w.classList.remove("selected"));
-            this.classList.add("selected");
+    function selectPayment(paymentMethod) {
+        selectedPaymentMethod = paymentMethod;
+    }
+
+    function showCustomAlert(message, type = "error") {
+        const alertBox = document.getElementById("customAlert");
+        alertBox.textContent = message;
+    
+        // Hapus class sebelumnya agar tidak bentrok
+        alertBox.classList.remove("error", "success");
+    
+        // Tambahkan class sesuai tipe pesan
+        if (type === "success") {
+            alertBox.classList.add("success");
+        } else {
+            alertBox.classList.add("error");
+        }
+    
+        alertBox.classList.add("show");
+    
+        setTimeout(() => {
+            alertBox.classList.remove("show");
+        }, 3000);
+    }
+    
+    
+    function checkout() {
+        const email = emailInput.value.trim();
+        if (!email) return showCustomAlert("❌ Harap masukkan email terlebih dahulu!", "error");
+        if (!selectedPaymentMethod) return showCustomAlert("❌ Harap pilih metode pembayaran terlebih dahulu!", "error");
+    
+        let storedPackage = localStorage.getItem("selectedPackage");
+        if (!storedPackage) return showCustomAlert("❌ Harap pilih produk terlebih dahulu!", "error");
+        selectedPackage = JSON.parse(storedPackage);
+    
+        const orderData = {
+            email,
+            paymentMethod: selectedPaymentMethod,
+            productName: selectedPackage.title,
+            productImage: selectedPackage.image,
+            packageDuration: selectedPackage.duration,
+            packagePrice: selectedPackage.price
+        };
+    
+        // Simpan data order ke localStorage
+        localStorage.setItem("orderData", JSON.stringify(orderData));
+    
+        // **Tutup popup payment secara otomatis tanpa menghapus localStorage**
+        paymentPopup.classList.remove("show");
+
+        // **Pastikan `transactionPopup` muncul setelah paymentPopup tertutup**
+        setTimeout(() => {
+            showTransactionPopup();
+        }, 300); // Delay sedikit agar tampilan tidak bertabrakan
+    }
+    
+    
+
+    function showTransactionPopup() {
+
+        const orderData = JSON.parse(localStorage.getItem("orderData"));
+        if (!orderData) return;
+
+        document.getElementById("transaction-product-image").src = orderData.productImage;
+        document.getElementById("transaction-product-name").textContent = orderData.productName;
+        document.getElementById("transaction-package-duration").textContent = orderData.packageDuration;
+        document.getElementById("transaction-subtotal-price").textContent = orderData.packagePrice;
+        document.getElementById("transaction-total-price").textContent = orderData.packagePrice;
+
+        if (orderData.paymentMethod === "QRIS") {
+            document.getElementById("transaction-payment-qris").classList.remove("hidden");
+            document.getElementById("transaction-payment-other").classList.add("hidden");
+        } else {
+            document.getElementById("transaction-payment-qris").classList.add("hidden");
+            document.getElementById("transaction-payment-other").classList.remove("hidden");
+            document.getElementById("transaction-payment-logo").src = `img/${orderData.paymentMethod.toLowerCase()}.png`;
+            document.getElementById("transaction-payment-number").textContent = "082351108031";
+        }
+
+        // Memunculkan popup
+        transactionPopup.style.display = "flex"; // Pastikan display diubah
+        setTimeout(() => {
+            transactionPopup.style.visibility = "visible";
+            transactionPopup.style.opacity = "1";
+        }, 10); // Sedikit delay agar transition berjalan dengan baik
+    }
+
+        // Fungsi menutup popup transaksi & menghapus data jika cancel/close ditekan
+        function cancelTransaction() {
+            const transactionPopup = document.getElementById("transaction-popup");
+            const paymentPopup = document.getElementById("payment-popup");
+        
+        
+            // Hapus data order yang tersimpan di localStorage
+            localStorage.removeItem("orderData");
+        
+    
+        
+            // Tutup popup transaksi
+            closeTransactionPopup();
+        }
+        
+        
+
+        // Fungsi menutup popup transaksi
+        function closeTransactionPopup() {
+            const transactionPopup = document.getElementById("transaction-popup");
+            const paymentPopup = document.getElementById("payment-popup");
+            clearWalletSelection();
+        
+
+            // Reset selectedPaymentMethod agar pengguna harus memilih ulang
+            selectedPaymentMethod = "";
+
+            function clearWalletSelection() {
+                wallets.forEach(w => w.classList.remove("selected"));
+            }
+
+        
+            transactionPopup.style.opacity = "0";
+            setTimeout(() => {
+                transactionPopup.style.visibility = "hidden";
+                transactionPopup.style.display = "none"; // Sembunyikan kembali
+            }, 300);
+    
+        }
+        
+
+
+        buyButtons.forEach(button => button.addEventListener("click", () => openPackagePopup(button)));
+        closeButton.addEventListener("click", () => popupOverlay.classList.remove("package-show"));
+        popupOverlay.addEventListener("click", e => { if (e.target === popupOverlay) popupOverlay.classList.remove("package-show"); });
+        closePaymentButton.addEventListener("click", closePaymentPopup);
+        backButton.addEventListener("click", closePaymentPopup);
+        paymentPopup.addEventListener("click", e => { if (e.target === paymentPopup) closePaymentPopup(); });
+        closeTransactionButton.addEventListener("click", closeTransactionPopup);
+
+        wallets.forEach(wallet => {
+            wallet.addEventListener("click", function () {
+                wallets.forEach(w => w.classList.remove("selected"));
+                this.classList.add("selected");
+                selectPayment(this.querySelector("img").alt);
+            });
         });
-    });
+        checkoutButton.addEventListener("click", checkout);
+
+        window.selectPayment = selectPayment;
+        window.checkout = checkout;
+        window.cancelTransaction = cancelTransaction;
+        window.closeTransactionPopup = closeTransactionPopup;
+
+        // 🔹 Fungsi untuk menghapus pilihan wallet saat payment popup ditutup
+        function clearWalletSelection() {
+             wallets.forEach(w => w.classList.remove("selected"));
+        }
+
+        // 🔹 Event listener untuk memilih wallet
+        wallets.forEach(wallet => {
+            wallet.addEventListener("click", function () {
+                wallets.forEach(w => w.classList.remove("selected"));
+                this.classList.add("selected");
+            });
+        });
+    
 });

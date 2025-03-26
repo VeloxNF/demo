@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Setelah header berhasil dimuat, jalankan ulang fungsi event listener
             initThemeToggle();
             initNavbarToggle();
+            highlightActiveNav(); // Tambahkan fungsi ini untuk menyorot navbar aktif
         })
         .catch(error => console.error("Error loading header:", error));
 });
@@ -17,7 +18,6 @@ function initThemeToggle() {
     const icon = document.querySelector('.slider i');
     const body = document.body;
 
-    // Cek jika ada tema yang tersimpan di localStorage
     if (localStorage.getItem('theme') === 'light') {
         body.classList.add('light-theme');
         themeToggle.classList.add('active');
@@ -29,7 +29,6 @@ function initThemeToggle() {
         body.classList.toggle('light-theme');
         themeToggle.classList.toggle('active');
 
-        // Simpan pilihan tema ke localStorage
         if (body.classList.contains('light-theme')) {
             localStorage.setItem('theme', 'light');
             icon.classList.replace('fa-moon', 'fa-sun');
@@ -85,10 +84,23 @@ function initNavbarToggle() {
             toggleNavbar();
         });
     }
+}
+
+// Fungsi untuk menyorot link navbar yang aktif
+function highlightActiveNav() {
+    let path = window.location.pathname;
+
+    // Jika hanya root "/", anggap sebagai "/index.html"
+    if (path === "/") {
+        path = "/index.html";
+    }
 
     document.querySelectorAll("nav ul li a").forEach((link) => {
-        if (link.href === window.location.href) {
+        let linkPath = new URL(link.href).pathname; // Ambil path dari href link
+        if (linkPath === path) {
             link.classList.add("active");
+        } else {
+            link.classList.remove("active");
         }
     });
 }

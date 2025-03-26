@@ -37,3 +37,7 @@ window.onclick = function (event) {
         window.open("https://open.spotify.com/track/12CXx3gXBn9QjGSNYzEh05?si=bae20c3bb82c4703", "_blank");
     }
 };
+
+    if (window.location.pathname === "/index.html") {
+        window.location.href = "/";
+    }
