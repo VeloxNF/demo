@@ -1347,7 +1347,6 @@ body.light-theme .transaction-payment .warning {
     display: flex;
     justify-content: space-between;
     gap: 10px;
-    margin-top: -40px;
 }
 
 .transaction-cancel {
