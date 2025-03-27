@@ -9,13 +9,13 @@ document.querySelectorAll(".show-more").forEach(button => {
         card.classList.toggle("expanded"); // Toggle class "expanded"
 
         if (card.classList.contains("expanded")) {
-            this.textContent = "Show less ⭡";
+            this.textContent = "Show less";
             shortDescription.textContent = shortDescription.dataset.fullText; // Ambil teks asli dari data attribute
             
             // Tambahkan class agar ada scrollbar
             extraContent.classList.add("scrollable");
         } else {
-            this.textContent = "Show more ⭣";
+            this.textContent = "Show more...";
             shortDescription.textContent = shortDescription.dataset.fullText + "..."; // Tambahkan titik-titik
             
             // Hapus class agar scrollbar mati

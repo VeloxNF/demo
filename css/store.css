@@ -94,19 +94,18 @@ body.light-theme .product-card {
     display: none;
 }
 
-/* Hilangkan garis bawah */
 .show-more {
     text-decoration: none;
-    color: #0077ff; /* Warna default */
+    color: #0077ff;
     transition: color 0.3s ease-in-out;
     display: inline-block;
+    width: fit-content;
 }
 
-/* Saat kursor diarahkan */
 .show-more:hover {
-    color: #3493ff; /* Ganti dengan warna yang diinginkan */
+    color: #3493ff;
 }
-/*supaya garis underlinenya gada*/
+
 a {
     text-decoration: none !important;
 }
@@ -954,11 +953,13 @@ body.light-theme .payment-body label {
     font-size: 14px;
     background: rgba(255, 255, 255, 0.1);
     color: white;
+    outline: 1px solid #e8e4ec48;
 }
 
 body.light-theme .payment-body input {
     border: 1px solid #e8e4ec;
     color: black;
+    outline: 1px solid #e8e4ec;
 }
 
 .payment-body input::placeholder {
@@ -995,28 +996,39 @@ body.light-theme .payment-method {
 }
 
 .wallet {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.164);
     padding: 10px;
     border-radius: 10px;
     text-align: center;
     cursor: pointer;
-    transition: outline 0.2s ease-in-out; /* Animasi biar smooth */
+}
 
+.wallet.selected {
+    background: rgba(255, 255, 255, 0.37);
+}
+
+.wallet:hover {
+    outline: 1px solid rgba(255, 255, 255, 0.37);
+}
+
+.wallet.selected {
+    outline: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 body.light-theme .wallet {
     background: rgba(41, 41, 41, 0.164);
 }
 
-
-.wallet:hover,
-.wallet.selected {
-    outline: 1px solid white !important;
+body.light-theme .wallet.selected {
+    background: rgba(41, 41, 41, 0.37);
 }
 
-body.light-theme .wallet:hover,
+body.light-theme .wallet:hover {
+    outline: 1px solid rgba(41, 41, 41, 0.37);
+}
+
 body.light-theme .wallet.selected {
-    outline: 1px solid rgb(0, 0, 0) !important;
+    outline: 1px solid rgba(41, 41, 41, 0.37);
 }
 
 .wallet img {
