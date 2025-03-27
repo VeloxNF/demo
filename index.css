@@ -1,0 +1,364 @@
+/* Reset dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Profile Container (Menyatukan Banner + Profile Info) */
+.profile-container {
+    bottom: -60px;
+    width: 90%;
+    max-width: 330px;
+    margin: 20px auto;
+    background: #0d0d0d;
+    border-radius: 10px;
+    border: 1px solid #333;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+}
+
+/* Light Theme Profile */
+body.light-theme .profile-container {
+    background: white;
+    border: 1px solid white;
+}
+
+/* Banner */
+.banner img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+}
+
+/* Profile Container - Efek Hover */
+.profile-container {
+    background: #0d0d0d;
+    transition: background 0.3s ease-in-out, transform 0.3s ease-in-out; /* Tambahkan animasi transform */
+    z-index: 999; /* Pastikan berada di atas navbar */
+    position: relative; /* Agar bisa mengatur z-index dengan benar */
+}
+
+/* Saat cursor masuk, latar berubah */
+.profile-container:hover {
+    background: #1a1a1a;
+}
+
+/* Banner - Efek Hover */
+.banner img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out; /* Animasi smooth */
+}
+
+/* Saat cursor masuk, banner jadi lebih gelap */
+.profile-container:hover .banner img {
+    filter: brightness(80%);
+}
+
+/* Foto Profil (Setengah Masuk ke Banner) */
+.profile-pic {
+    position: absolute;
+    bottom: 165px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    border: 2px solid #595166;
+    background: #221b2e;
+    z-index: 10;
+}
+
+/* Profile Info */
+.profile-info {
+    padding: 60px 20px 20px; /* Sesuaikan supaya tidak ketutupan foto */
+}
+
+
+/* Centang biru */
+.verified-icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 5px;
+    vertical-align: auto;
+}
+
+
+.profile-info h2 {
+    font-size: 20px;
+    margin: 5px 0;
+}
+
+body.light-theme .profile-info {
+    color: #000;
+}
+.profile-info p {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* Tags */
+.tags {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    z-index: 1051; /* Pastikan tags berada di atas navbar */
+    position: relative;
+}
+
+/* Efek Hover pada Tags */
+.tags span {
+    background: transparent;
+    border: 1px solid #0077ff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out; /* Animasi smooth */
+}
+
+/* Light Theme Tags */
+body.light-theme .tags span {
+    border-color: #3b82f6;
+    color: #000;
+}
+
+/* Saat cursor masuk ke Tag */
+.tags span:hover {
+    transform: scale(1.1); /* Membesarkan sedikit */
+}
+
+/* Saat diklik, buat efek animasi */
+.tags span:active {
+    transform: scale(1.15); /* Sedikit lebih besar saat diklik */
+}
+
+.medsos {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+    gap: 15px;
+}
+/* Ikon Sosial Media */
+.medsos i {
+    font-size: 20px;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out; /* Animasi smooth */
+}
+
+.medsos i:hover {
+    transform: scale(1.2); /* Membesarkan saat di-hover */
+    color: #0077ff; /* Ubah warna ikon saat di-hover */
+}
+
+.medsos i.fa-instagram {
+    color: #c2005e;
+}
+
+.medsos i.fa-github {
+    color: #4d4d4d;;
+}
+
+.medsos i.fa-tiktok {
+    color: white;
+}
+
+body.light-theme .medsos i.fa-tiktok {
+    color: rgb(71, 71, 71);
+}
+
+
+/* Links */
+.links {
+    margin-top: 80px;
+}
+
+/* Link container */
+.link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Pastikan panah tetap di kanan */
+    gap: 12px;
+    width: 80%;
+    max-width: 450px;
+    margin: 12px auto;
+    padding: 16px;
+    background: #0d0d0d;
+    border-radius: 10px;
+    border: 1px solid #333;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    position: relative;
+    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+}
+
+body.light-theme .link {
+    background: white;
+    border: 1px solid white;
+    color: black;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Efek saat hover: link bergeser ke kanan dan latar berubah */
+.link:hover {
+    background: #222;
+    transform: translateX(5px);
+}
+
+/* Ikon di kiri */
+.link i:first-child {
+    font-size: 22px;
+    color: #0077ff;
+    flex-shrink: 0;
+}
+
+/* Wrapper teks */
+.text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex-grow: 1;
+}
+
+/* Deskripsi teks */
+.desc {
+    font-size: 12px;
+    color: #888;
+    margin-top: 3px;
+    text-align: left;
+}
+
+/* Panah ke kanan */
+.arrow-icon {
+    font-size: 16px;
+    color: #888;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Efek hover: panah sedikit bergeser */
+.link:hover .arrow-icon {
+    transform: translateX(5px);
+    color: #0077ff;
+}
+
+
+/* Spotify khusus */
+.spotify {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 80%;
+    max-width: 450px;
+    margin: 20px auto;
+    padding: 20px 16px;
+    background: #0d0d0d;
+    border-radius: 45px;
+    border: 1px solid #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.spotify:hover {
+    background: #222;
+    transform: translateX(5px);
+}
+
+.spotify img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    transition: transform 1s linear;
+    cursor: pointer;
+}
+
+/* Animasi saat musik dimainkan */
+.spotify img.playing {
+    animation: spin 7s linear infinite;
+    cursor: pointer;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spotify .text {
+    color: white;
+    flex-grow: 1;
+    text-align: left;
+}
+
+body.light-theme .spotify .text {
+    color: #000;
+}
+
+.spotify i {
+    font-size: 22px;
+    color: #1db954;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.fa-spotify {
+    position: relative; /* Pastikan elemen tidak tertutup */
+    z-index: 10; /* Pastikan elemen di atas */
+}
+
+body.light-theme .spotify {
+    background: white;
+    border: 1px solid white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    width: 100%;
+    max-width: 550px; /* Sesuaikan ukuran agar mirip dengan gambar */
+    margin: 0 auto;
+    text-align: center;
+    font-size: 14px;
+    color: white;
+    padding: 20px 0;
+    background: transparent;
+
+}
+
+footer {
+    text-align: center;  /* Menengahkan teks */
+    font-size: 13px;
+    opacity: 0.5;
+}
+
+/* Garis di tengah */
+.footer-line {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    width: 80%;
+    margin: 10px auto;
+}
+body.light-theme .footer-line {
+    border-top: 1px solid #333; /* Warna merah saat light theme */
+}
+
+/* Teks footer */
+footer p {
+    margin: 5px 0;
+}
+
+body.light-theme footer p {
+    color: #000;
+}
