@@ -1387,7 +1387,7 @@ body.light-theme .transaction-payment h4 {
     margin-top: 10px;
 }
 
-.transaction-payment img {
+.transaction-payment .transaction-payment-logo {
     width: 80px; /* Sesuaikan ukuran gambar */
     height: auto;
     margin-bottom: 10px; /* Beri jarak bawah */
