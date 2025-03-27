@@ -314,13 +314,13 @@
                             <span id="selectedPayment">Pilih Pembayaran</span>
                         </div>
                         <div class="payment-options" id="paymentOptions">
-                            <div class="wallet" onclick="selectPayment('dana')">
+                            <div class="wallet" onclick="selectPayment('dana-hd')">
                                 <img src="img/dana.png" alt="Dana" draggable="false" oncontextmenu="return false;">
                             </div>
-                            <div class="wallet" onclick="selectPayment('gopay')">
+                            <div class="wallet" onclick="selectPayment('gopay-hd')">
                                 <img src="img/gopay.png" alt="Gopay" draggable="false" oncontextmenu="return false;">
                             </div>
-                            <div class="wallet" onclick="selectPayment('ovo')">
+                            <div class="wallet" onclick="selectPayment('ovo-hd')">
                                 <img src="img/ovo.png" alt="OVO" draggable="false" oncontextmenu="return false;">
                             </div>
                             <div class="wallet" onclick="selectPayment('qris')">
@@ -368,7 +368,7 @@
                                         <span id="transaction-service-fee">Rp0</span>
                                     </div>
                                     <div class="price-row discount">
-                                        <span class="diskon">Diskon:</span>
+                                        <span class="diskon">Promo code:</span>
                                         <span id="transaction-discount">-Rp0</span>
                                     </div>
                                     <hr>
@@ -390,8 +390,11 @@
                         
                         <div id="transaction-payment-other" class="transaction-payment hidden">
                             <h4>Please make a payment</h4>
-                            <img id="transaction-payment-logo" src="" alt="Payment Logo">
-                            <p id="transaction-payment-number"></p>
+                            <img class="transaction-payment-logo" id="transaction-payment-logo" src="" alt="Payment Logo">
+                            <div class="no-rekening-container">
+                                <p class="no-rekening">No. Rekening:</p>
+                                <p class="transaction-payment-number" id="transaction-payment-number"></p>
+                            </div>
                             <br>
                             <p class="warning">After payment, please contact us via WhatsApp with your payment receipt for immediate activation.</p>
                         </div>
@@ -404,5 +407,6 @@
             </div>
     </section>
     <script src="./js/store.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 </body>
 </html>

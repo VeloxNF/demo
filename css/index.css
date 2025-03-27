@@ -4,9 +4,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
-    outline: none !important;
-    box-shadow: none !important;
-    -webkit-tap-highlight-color: transparent;
+
 }
 
 /* Profile Container (Menyatukan Banner + Profile Info) */
@@ -30,13 +28,6 @@ body.light-theme .profile-container {
     border: 1px solid white;
 }
 
-/* Banner */
-.banner img {
-    width: 100%;
-    height: 110px;
-    object-fit: cover;
-}
-
 /* Profile Container - Efek Hover */
 .profile-container {
     background: #0d0d0d;
@@ -50,8 +41,18 @@ body.light-theme .profile-container {
     background: #1a1a1a;
 }
 
-/* Banner - Efek Hover */
+/* Banner Image*/
 .banner img {
+    display: none;
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out; /* Animasi smooth */
+}
+
+
+/* Banner Video*/
+.banner video {
     width: 100%;
     height: 110px;
     object-fit: cover;

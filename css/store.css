@@ -4,9 +4,6 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
-    outline: none !important;
-    box-shadow: none !important;
-    -webkit-tap-highlight-color: transparent;
 }
 
 /* BODY NYAAAAAAAAAAAAAAAAAA */
@@ -1003,26 +1000,23 @@ body.light-theme .payment-method {
     border-radius: 10px;
     text-align: center;
     cursor: pointer;
+    transition: outline 0.2s ease-in-out; /* Animasi biar smooth */
+
 }
 
 body.light-theme .wallet {
     background: rgba(41, 41, 41, 0.164);
 }
 
-.wallet:hover {
-    outline: 2px solid rgba(255, 255, 255, 0.6);
-}
 
-body.light-theme .wallet:hover {
-    outline: 2px solid rgba(82, 82, 82, 0.6);
-}
-
+.wallet:hover,
 .wallet.selected {
-    outline: 2px solid white;
+    outline: 1px solid white !important;
 }
 
+body.light-theme .wallet:hover,
 body.light-theme .wallet.selected {
-    outline: 2px solid rgba(82, 82, 82, 0.6);
+    outline: 1px solid rgb(0, 0, 0) !important;
 }
 
 .wallet img {
@@ -1372,6 +1366,10 @@ body.light-theme hr {
     color: white;
 }
 
+body.light-theme .transaction-payment h4 {
+    color: black;
+}
+
 .transaction-payment img {
     width: 100%;
     max-width: 200px;
@@ -1387,6 +1385,28 @@ body.light-theme hr {
     cursor: pointer;
     font-size: 12px;
     margin-top: 10px;
+}
+
+.transaction-payment img {
+    width: 80px; /* Sesuaikan ukuran gambar */
+    height: auto;
+    margin-bottom: 10px; /* Beri jarak bawah */
+}
+
+.transaction-payment .no-rekening-container {
+    display: flex;
+    gap: 7px;
+    width: 100%;
+    max-width: 250px; /* Atur agar tidak melebar */
+}
+
+.transaction-payment .no-rekening {
+    font-weight: bold;
+    color: #687577;
+}
+
+.transaction-payment .transaction-payment-number {
+    color: #4c6064;
 }
 
 .transaction-payment .warning {

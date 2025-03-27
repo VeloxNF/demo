@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
     
-    function checkout() {
+    function checkout() { 
         const email = emailInput.value.trim();
         if (!email) return showCustomAlert("❌ Harap masukkan email terlebih dahulu!", "error");
         if (!selectedPaymentMethod) return showCustomAlert("❌ Harap pilih metode pembayaran terlebih dahulu!", "error");
@@ -255,44 +255,123 @@ document.addEventListener("DOMContentLoaded", function () {
     
         // **Tutup popup payment secara otomatis tanpa menghapus localStorage**
         paymentPopup.classList.remove("show");
-
+    
         // **Pastikan `transactionPopup` muncul setelah paymentPopup tertutup**
         setTimeout(() => {
             showTransactionPopup();
-        }, 300); // Delay sedikit agar tampilan tidak bertabrakan
+        }, 300);
     }
     
+    class QRISGenerator {
+        constructor(qrisDecode) {
+            if (!qrisDecode) throw new Error("QRIS is not defined");
+            this.qris = qrisDecode;
+        }
     
-
+        generate(amount) {
+            if (!amount) throw new Error("Amount is not defined");
+    
+            const qrisSubstring = this.qris.slice(0, -4);
+            const step1 = qrisSubstring.replace("010211", "010212");
+            const step2 = step1.split("5802ID");
+            let step3 = `54${amount.toString().length.toLocaleString('id-ID', {
+                minimumIntegerDigits: 2,
+            })}${amount}`;
+    
+            step3 += '5802ID';
+    
+            const qrfix = step2[0] + step3 + step2[1];
+    
+            return qrfix + this.convertCRC16(qrfix);
+        }
+    
+        convertCRC16(str) {
+            function charCodeAt(str, i) {
+                return str.charCodeAt(i);
+            }
+    
+            let crc = 0xFFFF;
+            let strlen = str.length;
+            for (let c = 0; c < strlen; c++) {
+                crc ^= charCodeAt(str, c) << 8;
+    
+                for (let i = 0; i < 8; i++) {
+                    if (crc & 0x8000) {
+                        crc = (crc << 1) ^ 0x1021;
+                    } else {
+                        crc = crc << 1;
+                    }
+                }
+            }
+    
+            let hex = crc & 0xFFFF;
+            hex = hex.toString(16).toUpperCase();
+    
+            if (hex.length === 3) hex = "0" + hex;
+    
+            return hex;
+        }
+    }
+    
+    // ** Inisialisasi QRIS dengan NMID yang sudah ditentukan **
+    const qris = new QRISGenerator('00020101021126570011ID.DANA.WWW011893600915350103658802095010365880303UMI51440014ID.CO.QRIS.WWW0215ID10243208661700303UMI5204481453033605802ID5914Rippz Store.ID6015Kabupaten Cireb610545642630469A1');
+    
     function showTransactionPopup() {
-
         const orderData = JSON.parse(localStorage.getItem("orderData"));
         if (!orderData) return;
-
+    
         document.getElementById("transaction-product-image").src = orderData.productImage;
         document.getElementById("transaction-product-name").textContent = orderData.productName;
         document.getElementById("transaction-package-duration").textContent = orderData.packageDuration;
         document.getElementById("transaction-subtotal-price").textContent = orderData.packagePrice;
         document.getElementById("transaction-total-price").textContent = orderData.packagePrice;
-
+    
         if (orderData.paymentMethod === "QRIS") {
             document.getElementById("transaction-payment-qris").classList.remove("hidden");
-            document.getElementById("transaction-qris-image").src = `./img/${orderData.paymentMethod.toLowerCase()}.png`;
             document.getElementById("transaction-payment-other").classList.add("hidden");
+    
+            // Ambil harga dari orderData
+            let rawPrice = orderData.packagePrice;
+
+            // Hapus "Rp" dan titik (.) agar menjadi angka murni
+            let formattedPrice = rawPrice.replace(/Rp|\./g, '').trim();
+
+            // Konversi ke angka
+            const finalPrice = parseInt(formattedPrice);
+
+            if (isNaN(finalPrice) || finalPrice <= 0) {
+                return showCustomAlert("❌ Harga tidak valid. Pilih ulang produk!", "error");
+            }
+
+            // ** Generate QRIS Dynamic **
+            const dynamicQRIS = qris.generate(finalPrice);
+
+            
+            // ** Convert QRIS ke QR Code **
+            const qrCanvas = document.createElement("canvas");
+            new QRious({
+                element: qrCanvas,
+                value: dynamicQRIS,
+                size: 250 // Sesuaikan ukuran
+            });
+    
+            // ** Masukkan QR Code ke popup **
+            document.getElementById("transaction-qris-image").src = qrCanvas.toDataURL();
         } else {
             document.getElementById("transaction-payment-qris").classList.add("hidden");
             document.getElementById("transaction-payment-other").classList.remove("hidden");
             document.getElementById("transaction-payment-logo").src = `img/${orderData.paymentMethod.toLowerCase()}.png`;
             document.getElementById("transaction-payment-number").textContent = "082351108031";
         }
-
-        // Memunculkan popup
-        transactionPopup.style.display = "flex"; // Pastikan display diubah
+    
+        // ** Tampilkan popup **
+        transactionPopup.style.display = "flex";
         setTimeout(() => {
             transactionPopup.style.visibility = "visible";
             transactionPopup.style.opacity = "1";
-        }, 10); // Sedikit delay agar transition berjalan dengan baik
+        }, 10);
     }
+    
 
         // Fungsi menutup popup transaksi & menghapus data jika cancel/close ditekan
         function cancelTransaction() {
@@ -362,14 +441,6 @@ document.addEventListener("DOMContentLoaded", function () {
         function clearWalletSelection() {
              wallets.forEach(w => w.classList.remove("selected"));
         }
-
-        // 🔹 Event listener untuk memilih wallet
-        wallets.forEach(wallet => {
-            wallet.addEventListener("click", function () {
-                wallets.forEach(w => w.classList.remove("selected"));
-                this.classList.add("selected");
-            });
-        });
 
         // Event listener untuk tombol "Order" di popup info agar otomatis buka popup package
         const orderButton = document.querySelector(".order-btn"); // Tombol Order di Info Popup
