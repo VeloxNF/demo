@@ -305,6 +305,7 @@
                     <div class="payment-body">
                         <label for="emailInput">Email</label>
                         <input type="email" id="emailInput" placeholder="example@gmail.com" required>
+                        <p>*kami akan mengirim pesanan anda melalui email ini.</p>
                     </div>
 
                     <!-- Body 2: Pilih Pembayaran -->
@@ -314,16 +315,16 @@
                         </div>
                         <div class="payment-options" id="paymentOptions">
                             <div class="wallet" onclick="selectPayment('dana')">
-                                <img src="img/dana.png" alt="Dana">
+                                <img src="img/dana.png" alt="Dana" draggable="false" oncontextmenu="return false;">
                             </div>
                             <div class="wallet" onclick="selectPayment('gopay')">
-                                <img src="img/gopay.png" alt="Gopay">
+                                <img src="img/gopay.png" alt="Gopay" draggable="false" oncontextmenu="return false;">
                             </div>
                             <div class="wallet" onclick="selectPayment('ovo')">
-                                <img src="img/ovo.png" alt="OVO">
+                                <img src="img/ovo.png" alt="OVO" draggable="false" oncontextmenu="return false;">
                             </div>
                             <div class="wallet" onclick="selectPayment('qris')">
-                                <img src="img/qris-ri.png" alt="QRIS">
+                                <img src="img/qris-logo.png" alt="QRIS" draggable="false" oncontextmenu="return false;">
                             </div>
                         </div>
                     </div>
@@ -353,7 +354,7 @@
                     </div>
                     <div class="transaction-popup-body">
                         <div class="transaction-popup-product">
-                            <img id="transaction-product-image" src="" alt="Product Image">
+                            <img id="transaction-product-image" src="" alt="Product Image" draggable="false" oncontextmenu="return false;">
                             <div class="transaction-popup-info">
                                 <h4 id="transaction-product-name"></h4>
                                 <h5 class="transaction-package-duration" id="transaction-package-duration"></h5>
